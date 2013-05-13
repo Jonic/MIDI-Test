@@ -17,28 +17,57 @@
 				max-width: 0px;
 				max-height: 0px;
 			}
+
+			#msg {
+				width:20em;
+				height:24em;
+				margin:.5em 0 .5em 0;
+				padding:.5em;
+				background-color:#eee;
+				border:solid 1px #888;
+				white-space:pre;
+				font-family:Courier New, monospace;
+				font-size:.75em;
+				overflow:auto;
+			}
 		</style>
 	</head>
 
 	<body>
 		<object id="Jazz" type="audio/x-jazz" class="hidden"></object>
 
+		<ul>
+			<li class="fader-value fader-value-0">0</li>
+			<li class="fader-value fader-value-1">0</li>
+			<li class="fader-value fader-value-2">0</li>
+			<li class="fader-value fader-value-3">0</li>
+			<li class="fader-value fader-value-4">0</li>
+			<li class="fader-value fader-value-5">0</li>
+			<li class="fader-value fader-value-6">0</li>
+			<li class="fader-value fader-value-7">0</li>
+			<li class="fader-value fader-value-8">0</li>
+		</ul>
+
 		<script>
 			var Jazz = document.getElementById('Jazz');
+			var faderOffset = 3;
 
-			function play() {
-				Jazz.MidiOut(0x90, 60, 100);
-				Jazz.MidiOut(0x90, 64, 100);
-				Jazz.MidiOut(0x90, 67, 100);
+			function faderCallback(t, a, fader, value) {
+				fader -= faderOffset;
+
+				if (fader < 9) {
+					var valueAsPercentage = Math.round((value / 128) * 100);
+					var faderOutput = document.querySelector('.fader-value-' + fader);
+
+					faderOutput.innerHTML = valueAsPercentage;
+
+					console.log('Fader:', fader, 'valueAsPercentage:', valueAsPercentage);
+				}
 			}
 
-			function stop() {
-				Jazz.MidiOut(0x80, 60, 0);
-				Jazz.MidiOut(0x80, 64, 0);
-				Jazz.MidiOut(0x80, 67, 0);
-			}
+			Jazz.MidiInOpen(0, faderCallback);
+
+			var controller = new Option(' ', ' ', true, true);
 		</script>
-
-		<button onmousedown='play();' onmouseup='stop();'> Press to play... </button>
 	</body>
 </html>
