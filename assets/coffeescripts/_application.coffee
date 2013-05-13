@@ -1,21 +1,24 @@
 'use strict'
 
-Jazz = document.getElementById('Jazz')
-faderOffset = 3
+currentControl = document.querySelector('.current-control')
+currentValue   = document.querySelector('.current-value')
+controlOffset  = 3
 
-faderCallback = (t, a, fader, value) ->
-	fader -= faderOffset
+controlCallback = (t, a, controlIndex, value) ->
+	currentControl.innerHTML = controlIndex
+	currentValue.innerHTML   = value
 
-	if fader < 9
-		valueAsPercentage = Math.round((value / 128) * 100)
-		faderOutput = document.querySelector('.fader-value-' + fader)
+	controlIndex -= controlOffset
 
-		faderOutput.innerHTML = valueAsPercentage
+	valueAsPercentage = (value / 128) * 100
 
-		console.log('Fader:', fader, 'valueAsPercentage:', valueAsPercentage)
+	controlOutput = document.querySelector('.fader-value-' + controlIndex)
+
+	if controlOutput
+		controlOutput.innerHTML = valueAsPercentage
 
 	return
 
-Jazz.MidiInOpen(0, faderCallback)
+document.getElementById('Jazz').MidiInOpen(0, controlCallback)
 
 controller = new Option(' ', ' ', true, true)
