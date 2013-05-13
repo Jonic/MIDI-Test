@@ -6,7 +6,7 @@
 		<title>MIDI Interface Test</title>
 
 		<style>
-			.hidden {
+			object {
 				visibility: hidden;
 				width: 0px;
 				height: 0px;
@@ -17,24 +17,11 @@
 				max-width: 0px;
 				max-height: 0px;
 			}
-
-			#msg {
-				width:20em;
-				height:24em;
-				margin:.5em 0 .5em 0;
-				padding:.5em;
-				background-color:#eee;
-				border:solid 1px #888;
-				white-space:pre;
-				font-family:Courier New, monospace;
-				font-size:.75em;
-				overflow:auto;
-			}
 		</style>
 	</head>
 
 	<body>
-		<object id="Jazz" type="audio/x-jazz" class="hidden"></object>
+		<object id="Jazz" type="audio/x-jazz"></object>
 
 		<ul>
 			<li class="fader-value fader-value-0">0</li>
