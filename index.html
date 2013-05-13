@@ -5,19 +5,7 @@
 
 		<title>MIDI Interface Test</title>
 
-		<style>
-			object {
-				visibility: hidden;
-				width: 0px;
-				height: 0px;
-				margin: 0px;
-				padding: 0px;
-				border-style: none;
-				border-width: 0px;
-				max-width: 0px;
-				max-height: 0px;
-			}
-		</style>
+		<link href="assets/styles/master.css" rel="stylesheet" />
 	</head>
 
 	<body>
@@ -35,26 +23,6 @@
 			<li class="fader-value fader-value-8">0</li>
 		</ul>
 
-		<script>
-			var Jazz = document.getElementById('Jazz');
-			var faderOffset = 3;
-
-			function faderCallback(t, a, fader, value) {
-				fader -= faderOffset;
-
-				if (fader < 9) {
-					var valueAsPercentage = Math.round((value / 128) * 100);
-					var faderOutput = document.querySelector('.fader-value-' + fader);
-
-					faderOutput.innerHTML = valueAsPercentage;
-
-					console.log('Fader:', fader, 'valueAsPercentage:', valueAsPercentage);
-				}
-			}
-
-			Jazz.MidiInOpen(0, faderCallback);
-
-			var controller = new Option(' ', ' ', true, true);
-		</script>
+		<script src="assets/scripts/_application.js"></script>
 	</body>
 </html>
